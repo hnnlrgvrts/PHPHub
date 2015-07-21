@@ -1,145 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <!-- Bootstrap CSS & Theme -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css'>
 
     <title>PHP Hub</title>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">PHP Hub</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li><a href="#">Link</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-    <!-- End of navbar -->
-
-    <!-- Jumbotron - used for displaying blurry header foto and brand -->
-    <div class="jumbotron">
-        <div class="container">
-            <h1>PHP Hub</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem saepe impedit iste voluptate harum expedita blanditiis, nisi, quaerat veritatis ducimus maiores assumenda temporibus voluptatibus rem! Dignissimos expedita, id laborum ea.</p>
-            <button class="btn btn-primary">Button</button>
-        </div>
-    </div>
-    <!-- End of jumbotron -->
-
-    <!-- Thumbnails - project overviews -->
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-            <img src="http://placehold.it/480x270" alt="Placeholder" />
-        </a>
-    </div>
-    <!-- End of thumbnails -->
+    <!-- This loads the header - error occurs when file isn't found -->
+    <?php require_once('includes/header.php'); ?>
+    
+    <!-- This loads the body depending on the URL. Default view is always the home screen. -->
+    <?php 
+        if (isset($_GET['page'])) { 
+            $page = $_GET['page']; 
+            if (file_exists('pages/' . $page . '.php')) { 
+                include('pages/' . $page . '.php'); 
+            } else { 
+                include('pages/home.php'); 
+            } } else { 
+                include('pages/home.php'); 
+        } 
+    ?>
 
     <!-- jQuery -->
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src='//code.jquery.com/jquery-2.1.4.min.js'></script>
     <!-- Bootstrap JS -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
 </body>
 
 </html>
