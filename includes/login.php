@@ -1,38 +1,92 @@
-<?php
-session_start(); // Starting Session
-$error=''; // Variable To Store Error Message
-if (isset($_POST['submit'])) {
-if (empty($_POST['nickname']) || empty($_POST['password'])) {
-$error = "nickname or Password is invalid";
-}
-else
-{
-// Define $nickname and $password
-$nickname=$_POST['nickname'];
-$password=$_POST['password'];
-// Establishing Connection with Server by passing server_name, user_id and password as a parameter
-$connection = mysql_connect("localhost", "root", "root");
-// To protect MySQL injection for Security purpose
-$nickname = stripslashes($nickname);
-$password = stripslashes($password);
-$nickname = mysql_real_escape_string($nickname);
-$password = mysql_real_escape_string($password);
-// Selecting Database
-$db = mysql_select_db("PHPhub", $connection);
-// SQL query to fetch information of registerd users and finds user match.
-$query = mysql_query("select * from login where password='$password' AND nickname='$nickname'", $connection);
-$rows = mysql_num_rows($query);
-if ($rows == 1) {
-$_SESSION['login_user']=$nickname; // Initializing Session
-header("location: profile.php"); // Redirecting To Other Page
-} else {
-$error = "nickname or Password is invalid";
-}
-mysql_close($connection); // Closing Connection
-}
-}
-?>
- 
+<?php 
+
+	if (!empty($_POST)) {
+		$salt = "DMIqsegmiF§MEIfjé2";
+		$nickname = $_POST['nickname'];
+		$password = $_POST['password'];
+
+		// connectie maken met database
+		// @ gebruiken om fouten onbeschikbaar te maken
+		$conn = new mysqli("localhost", "root", "root", "PHPhub");
+		if (!$conn->connect_errno) {
+
+			//connectie is ok
+			$query = "SELECT * FROM db_users WHERE nickname = '".$conn->real_escape_string($nickname)."';";
+			$result = $conn->query($query);
+			// echo $query;
+			check of password_verify(wachtwoord) == hash
+			$row_hash = $result->fetch_array();
+			$res = "";
+			if (password_verify($password, $row_hash['password'])) 
+			{
+				res = "Welcome!";
+			}
+			else
+			{
+				res = "Invalid nickname/password";
+			// }
+		}
+		function doLogin($p_username)
+	{
+		// cookie plaatsen (onthouden)
+		//$salt ="DFMEIFJ35938...8!!sdmciejf";
+		//$content = $p_username . "," . md5($p_username.$salt);
+		//setcookie("loginCookie", $content, time()+60*60);
+
+		session_start();
+		$_SESSION['loggedin'] = 'yes';
+
+		// ga naar andere pagina
+	}
+
+	function isLoggedIn()
+	{
+		// als er een cookie is
+		$salt ="DFMEIFJ35938...8!!sdmciejf";
+		if (isset($_COOKIE['loginCookie'])) 
+		{
+			$cookie = $_COOKIE['loginCookie'];
+			$cookie_exploded = explode(",", $cookie);
+			if (md5($cookie_exploded[0] . $salt) == $cookie_exploded[1]) {
+				return true;
+			}
+
+			
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	// controleer of er gepost is
+	if (!empty($_POST)) {
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		// check of user mag inloggen
+		if (canLogIn($username,$password)) 
+		{
+			doLogin($username);
+			$feedback = "Welcome back!";
+		}
+		else
+		{
+			$feedback = "You can't login!";
+		}
+
+	}
+	}
+
+
+	/*
+
+	
+	
+	*/
+
+	
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +97,7 @@ mysql_close($connection); // Closing Connection
 <body>
 	
 	<h1>Login</h1>
-	
+	<?php if($res != "") echo $res; ?>
 	<form action="" method="post">
 		
 		<label for="nickname">nickname: </label>
