@@ -24,11 +24,12 @@ ini_set('display_errors', 1); error_reporting(~0);
 				if (!isset($_SESSION['loggedin_user'])) {
 					$_SESSION['loggedin_user'] = $row_user['nickname'];
 					$_SESSION['loggedin_role'] = $row_user['role'];
+					$_SESSION['loggedin_userid'] =$row_user['id'];
 				} else {
 					var_dump($_SESSION);
 				}
 				// redirect naar indexpagina terwijl men aangemeld is. 
-				header("Location: ../index.php");
+				header("Location: index.php");
 				
 			}
 			else

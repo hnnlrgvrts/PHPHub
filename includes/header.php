@@ -14,37 +14,36 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a>
+                <li class="active"><a href="../index.php">Home<span class="sr-only">(current)</span></a>
             </li>
-            <?php if(!isset($_SESSION['loggedin_user'])):?>
-            <li><a href="includes/login.php">Log In</a>
+            <?php if(isset($_SESSION['loggedin_user'])):?>
+            <li><a href="logout.php">Logout</a>
         </li>
         <?php else: ?>
-        <li><a href="includes/logout.php">
-            Logout
+        <li><a href="login.php">
+            Login
         </a></li>
-        <?endif;?>
-        
-        <li><a href="includes/signup.php">
+        <li><a href="signup.php">
             Sign Up!
         </a></li>
+        <?php endif; ?>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#">
                 <?php
-                session_start();
                 if (isset($_SESSION['loggedin_user'])) {
                 echo $_SESSION['loggedin_user'];
                 echo $_SESSION['loggedin_role'];
                 } else {
-                echo 'banaan';
+                echo '';
                 }
                 ?>
             </a></li>
-            <?php if($_SESSION['loggedin_role']==1):?>
+
+            <?php if(isset($_SESSION['loggedin_role'])==1):?>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Add new project</a>
+                    <li><a href="addproject.php">Add new project</a>
                 </li>
                 <li><a href="#">Edit Admins</a>
             </li>
@@ -55,6 +54,7 @@
     </li>
 </ul>
 </li>
+<?php else: ?>
 <?php endif; ?>
 </ul>
 </div>
