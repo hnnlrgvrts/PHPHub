@@ -25,8 +25,6 @@ session_start();
 				{
 					echo "Request could not be added to the db";
 				}
-
-
 			}
 			}
 ?>
@@ -62,7 +60,35 @@ session_start();
 			<?php else: ?>
 			<a href="login.php"><button type="button" class="btn btn-primary">Login</button></a>
 			<?php endif; ?>
-		</div>
+			<?php if (!$conn->connect_errno) {
+							$query = "SELECT * FROM db_request WHERE id_project =".$project.";";
+							// $result haalt data uit tabel van databank
+							$result=$conn->query($query);
+							while ($i=$result->fetch_object()) {
+								$queryTwo ="SELECT db_users.nickname FROM db_users INNER JOIN db_request ON db_users.id=db_request.id_user WHERE db_request.id_user=".$i->id_user.";";
+								//Selecteer nickname uit databank users van databank users en voeg deze samen met databank request op basis 
+								//van id uit databank users welke overeenstemt met user id uit databank request waarbij de user id uit
+								//databank request gelijk is aan de user id uit object i.
+								$resultTwo=$conn->query($queryTwo);
+								$objectTwo=$resultTwo->fetch_object();
+								echo '<button type="button" name="upvote" class="glyphicon glyphicon-triangle-top">'.
+								'</button>'.
+								'<button type="button" name="downvote" class="glyphicon glyphicon-triangle-bottom">'.
+								'</button>'.
+								'<div class="pasnel panel-default">'.
+								'<div class="panel-heading">'.
+								'<h3 class="panel-title">'.
+								$objectTwo->nickname.
+								'</h3>'.
+								'</div>'.
+								'<div class="panel-body">'.
+								$i->request.
+								'</div>'.
+								'</div>';
+							}
+			}
+			?>
+			
 		<!-- jQuery -->
 		<script src='//code.jquery.com/jquery-2.1.4.min.js'></script>
 		<!-- Bootstrap JS -->

@@ -24,7 +24,7 @@ $_SESSION['loggedin_role'] = 0;
 var_dump($_SESSION);
 }
 // redirect aangemeld naar index pagina.
-header("Location: ../index.php");
+header("Location: sessionhandler.php");
 }
 } else {
 	echo "fail ".$conn->connect_error;

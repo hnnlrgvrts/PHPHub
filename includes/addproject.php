@@ -29,8 +29,7 @@
 		<label for="project_name">Name</label><input type="text" name="project_name" id="project_name">
 		<label for="project_company">Company</label><input type="text" name"project_company" id="project_company">
 		<label for="project_description">Description</label><textarea name="project_description" id="project_description" cols="30" rows="10"></textarea>
-		<input type="file" name="image">
-		<input type="sumbit" name="submit" >
+		<button type="submit">Submit</button>
 	</form>
 	<?php
 	
