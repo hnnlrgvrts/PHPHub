@@ -19,6 +19,8 @@ ini_set('display_errors', 1); error_reporting(~0);
 			if (password_verify($password, $row_user['password']))
 			{
 				echo "Welcome!";
+                $message = "Welcome!";
+                echo "<script type='text/javascript'>alert('$message');</script>";
 				// Start de session als login succesvol is!
 				session_start();
 				if (!isset($_SESSION['loggedin_user'])) {
@@ -29,39 +31,48 @@ ini_set('display_errors', 1); error_reporting(~0);
 					var_dump($_SESSION);
 				}
 				// redirect naar indexpagina terwijl men aangemeld is. 
-				header("Location: index.php");
-				
+				header("Location: index.php");	
 			}
 			else
 			{
 				echo "Go away!";
 			}
-	
-		}
-		
-	}
-	/*
-	
-	
-	*/
-	
+		}	
+	}	
 ?>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Login</title>
-	</head>
-	<body>
-		
-		<h1>Login</h1>
-		<form action="" method="post">
-			
-			<label for="nickname">nickname: </label>
-			<input type="text" id="nickname" name="nickname">
-			<label for="password">Password: </label>
-			<input type="password" id="password" name="password">
-			<button type="submit">Login!</button>
-		</form>
-	</body>
+
+<head>
+  <?php require_once('head_content.php'); ?>
+  
+  <title>Login</title>
+</head>
+
+<body>
+  <?php require_once('header.php'); ?> 
+  <div class="container-fluid">
+    <h1>Login</h1>
+    <form class="form-horizontal" action="" method="post">
+      <div class="form-group">
+        <label for="nickname" class="col-sm-2 control-label">Nickname</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="nickname" placeholder="Nickname" name="nickname">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Login!</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
 </html>

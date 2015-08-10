@@ -2,20 +2,14 @@
 <html lang='en'>
 
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <!-- Bootstrap CSS & Theme -->
-    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css'>
-    <link rel="stylesheet" href="css/screen.css">
+    <?php require_once('head_content.php'); ?>
 
     <title>PHP Hub</title>
 </head>
 
 <body>
     <?php session_start();
-     /* This loads the header - error occurs when file isn't found */
+     /* This loads the header - error occurs when file isn't found because we need the header for navigation purposes */
      require_once('header.php'); ?>
     
     <!-- This loads the body depending on the URL. Default view is always the home screen. -->

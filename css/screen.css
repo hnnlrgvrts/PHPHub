@@ -1,3 +1,7 @@
+body > .container-fluid {
+  margin-top: 50px;
+}
+
 .description description2{
 	 word-break: break-all;
 }
