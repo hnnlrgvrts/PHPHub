@@ -30,6 +30,14 @@ $config = array(
 /*
     Creating constants for heavily used paths makes things a lot easier.
     ex. require_once(LIBRARY_PATH . "library_file.php")
+
+    ___FILE___: the current filename, e.g. config.php in this case
+    dirname(): the directory containing the current file, e.g. resources in this case
+    realpath(): the absolute pathname
+
+    Can also be written as 
+        $PAGES_PATH = "resources/pages";
+    but the above is a less flexible way of defining this variable.
 */
 defined("PAGES_PATH")
     or define("PAGES_PATH", realpath(dirname(__FILE__) . '/pages'));
