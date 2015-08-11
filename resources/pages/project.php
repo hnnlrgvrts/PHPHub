@@ -48,8 +48,6 @@ if (!$conn->connect_errno) {
 	</div>
 	<button type="submit" name="submit" class="btn btn-default">Submit feature request</button>
 </form>
-<?php } else { ?>
-	<a href="index.php?page=login" class="btn btn-primary">Login</a>
 <?php } ?>
 
 <?php
@@ -71,10 +69,11 @@ if (!$conn->connect_errno) {
 		$objectTwo = $resultTwo->fetch_object();
 		echo '<div class="panel panel-default">' . 
 				'<div class="panel-heading">' . 
-					'<div class="vote-buttons">' .
-						'<button type="button" name="upvote" class="glyphicon glyphicon-triangle-top"></button>' . 
-						'<button type="button" name="downvote" class="glyphicon glyphicon-triangle-bottom"></button>' .		
-					'</div>' .
+					'<form class="form-inline vote-buttons">' .
+						'<button type="submit" name="upvote" class="btn btn-default"><i class="glyphicon glyphicon-triangle-top"></i></button>' . 
+						'<button type="submit" name="downvote" class="btn btn-default"><i class="glyphicon glyphicon-triangle-bottom"></i></button>' .		
+						'<span class="feature-score">' . $i->score . '</span>' .
+					'</form>' .
 					'<h3 class="panel-title">' . $i->request . '</h3>' . 
 				'</div>' . 
 				'<div class="panel-body">Feature requested by <strong>' . $objectTwo->nickname . '</strong></div>' . 
@@ -82,10 +81,12 @@ if (!$conn->connect_errno) {
 	}
 }
 
-?>
+?>		
 		<!-- jQuery -->
 		<script src='//code.jquery.com/jquery-2.1.4.min.js'></script>
 		<!-- Bootstrap JS -->
 		<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+		<!-- JS for voting -->
+		<script src="js/vote.js"></script>
 	</body>
 </html>
