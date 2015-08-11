@@ -1,17 +1,25 @@
-body > .container-fluid {
-  margin-top: 50px;
+.feature-request-form {
+	margin-bottom: 30px;
+}
+.panel-heading .vote-buttons {
+	display: inline-block;
+	margin-right: 30px;
+}
+.panel-heading h3 {
+	display: inline-block;
 }
 
-.description description2{
-	 word-break: break-all;
+.description description2 {
+	word-break: break-all;
 }
-.imgcontainer{
-	
+
+.imgcontainer {
 	width: 100%;
-	background-color: rgba(0,0,0, 0.2);
+	background-color: rgba(0, 0, 0, 0.2);
 }
-.imgcontainer img{
+
+.imgcontainer img {
 	margin: 0 auto;
-	width:auto;
+	width: auto;
 	display: block;
 }
