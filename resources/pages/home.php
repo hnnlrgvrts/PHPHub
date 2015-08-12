@@ -18,10 +18,10 @@
 	$conn = new mysqli("localhost", "root", "root", "phphub");
 	
 	if (!$conn->connect_errno) {
-		//connectie is ok
+		// Connection is ok
 		$query = "SELECT * FROM db_project;";
 
-		// $result haalt data uit tabel van databank 
+		// $result fetches data from the table of the database 
 		$result=$conn->query($query);        
 
 		while ($i=$result->fetch_object()) {
