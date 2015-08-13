@@ -23,6 +23,7 @@ For more information, please refer to: http://code.tutsplus.com/tutorials/organi
 * See projects
 * See a single project in detail
 * Add a feature request
+* Vote for a feature request
 
 As an admin:
 
