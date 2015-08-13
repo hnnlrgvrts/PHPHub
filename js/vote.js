@@ -2,20 +2,14 @@
 $(document).ready(function () {
 	//1. Detect vote button click
 	$('button', '.vote-buttons').on('click', function (e) {
+		// Prevent default submit button action (= reload page and POST form)
+		e.preventDefault();
+		
 		// One of either buttons was clicked
 		var id = $(this).siblings('#fr-id').val(),
 			name = this.name,
 			dataString = "id=" + id,
-			url = "resources/pages/";
-
-		//2. Get which button has been clicked (up-/downvote)
-		if (name === "upvote") {
-			// Feature request has been upvoted
-			url += "upvote.php";
-		} else if (name === "downvote") {
-			// Feature request has been downvoted
-			url += "downvote.php";
-		}
+			url = "index.php?page=vote.php&projectid=";
 
 		//3. Send an update for the related feature request to the db using ajax
 		$.ajax({
@@ -30,34 +24,10 @@ $(document).ready(function () {
 			},
 			error: function (e) {
 				//function executes when the call was a failure (= callback)
-				
+				console.log("Ajax call failed, here's what's returned: ", e);				
 			}
 		});
 
 		return (false); //AVOID PAGE RELOAD WHEN CLICKING ON ONE OF THE BUTTONS
 	});
 });
-
-/* 
-when
-	user clicks button
-check (expand at later point to include switchable votes)
-	if user has already voted
-		cancel (= disable buttons)
-	else 
-		insert record into
-			voting with
-				id of logged in user
-				id of feature request
-				1/0 for up-/downvote
-
-when
-	projects page load
-	select all votes of
-		loaded project
-		determine score of each request
-			count all upvotes
-			count all downvotes
-			upvotes - downvotes = score
-		
-*/

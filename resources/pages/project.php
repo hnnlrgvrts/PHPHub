@@ -31,58 +31,10 @@ if (!$conn->connect_errno) {
 			$userid . "','" . 
 			$project . "')";
 		
-//		if ($conn->query($query)) {
-//			echo '<div class="alert alert-success" role="alert">Feature request successfully added!</div>';
-//		} else {
-//			echo '<div class="alert alert-warning" role="alert">Request could not be added to the database.</div>';
-//		}
-	}
-	//Upvote a feature request
-	if(isset($_POST['upvote'])) {
-		// Get user id & feature request id
-		$userid = $_SESSION['loggedin_userid'];
-		$requestid = $_POST['request_id'];
-		
-		// Update 2 tables of the db:
-		// 1. update the feature request record: score + 1
-		// 2. create new record in voting table with the id of the user that voted, the request voted on, and the type of vote.
-		$queryRequest = 'UPDATE db_request SET score = score + 1 WHERE db_request.id = ' . $requestid . ';';	
-		$queryVoting = 'INSERT INTO db_voting (id_user, id_votedrequest, type) VALUES(' . 
-			$userid . ',' .
-			$requestid . ',' .
-			'1'	. ')';
-		
-		// If both queries succeeded
-		if ($conn->query($queryRequest) && $conn->query($queryVoting)) {
-			// Show succesful feedback
-			echo '<div class="alert alert-success" role="alert">Successfully voted!</div>';
+		if ($conn->query($query)) {
+			echo '<div class="alert alert-success" role="alert">Feature request successfully added!</div>';
 		} else {
-			// Show negative feedback
-			echo '<div class="alert alert-warning" role="alert">Something went wrong while voting.</div>';
-		}
-	}
-	//Downvote a feature request
-	if(isset($_POST['downvote'])) {
-		// Get user id & feature request id
-		$userid = $_SESSION['loggedin_userid'];
-		$requestid = $_POST['request_id'];
-		
-		// Update 2 tables of the db:
-		// 1. update the feature request record: score - 1
-		// 2. create new record in voting table with the id of the user that voted, the request voted on, and the type of vote.
-		$queryRequest = 'UPDATE db_request SET score = score - 1 WHERE db_request.id = ' . $requestid . ' AND score > 0;';	
-		$queryVoting = 'INSERT INTO db_voting (id_user, id_votedrequest, type) VALUES(' . 
-			$userid . ',' .
-			$requestid . ',' .
-			'0'	. ')';
-		
-		// If both queries succeeded
-		if ($conn->query($queryRequest) && $conn->query($queryVoting)) {
-			// Show succesful feedback
-			echo '<div class="alert alert-success" role="alert">Successfully voted!</div>';
-		} else {
-			// Show negative feedback
-			echo '<div class="alert alert-warning" role="alert">Something went wrong while voting.</div>';
+			echo '<div class="alert alert-warning" role="alert">Request could not be added to the database.</div>';
 		}
 	}
 }
@@ -116,6 +68,12 @@ if (!$conn->connect_errno) {
 	$result = $conn->query($query);
 	
 	while ($i = $result->fetch_object()) {
+		//when
+		//	projects page load
+		//	select all votes of
+		//		loaded project
+		//		load score of each request
+		
 		// Select the nickname from the users table & join this with the request table based on the user id
 		// (matching the user id from both the users & request table). This user id also matches the user id from object $i.
 		$queryTwo = "SELECT db_users.nickname, db_users.id " . 
@@ -140,7 +98,7 @@ if (!$conn->connect_errno) {
 		// Start creating the feature request HTML
 		$fr_html = '<div class="panel panel-default">' . 
 						'<div class="panel-body">' . 
-							'<form class="form-inline vote-buttons" action="" method="post" >' .
+							'<form class="form-inline vote-buttons" action="index.php?page=vote&projectid=' . $project . '" method="post" >' .
 								'<input name="request_id" type="hidden" value="' . $i->id . '" />' .
 								'<button type="submit" name="upvote" class="btn btn-success" ';
 		
