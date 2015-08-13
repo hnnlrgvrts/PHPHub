@@ -2,15 +2,15 @@
 	margin-bottom: 30px;
 }
 
-.panel-heading .vote-buttons {
+.panel .vote-buttons {
 	display: inline-block;
 	margin-right: 50px;
 }
 
-.panel-heading .feature-score {
+.panel .feature-score {
 	margin-left: 10px;
 }
 
-.panel-heading h3 {
+.panel h3 {
 	display: inline-block;
 }

@@ -22,7 +22,7 @@ if (!$conn->connect_errno) {
 //	}
 	
 	// Add a new feature request
-	if (!empty($_POST['request'])) {
+	if (isset($_POST['request'])) {
 		//var_dump($_POST);
 		$request = $_POST['request'];
 		$userid = $_SESSION['loggedin_userid'];
@@ -62,7 +62,7 @@ if (!$conn->connect_errno) {
 		}
 	}
 	//Downvote a feature request
-	if(isset($_POST['downvote'])) 
+	if(isset($_POST['downvote'])) {
 		// Get user id & feature request id
 		$userid = $_SESSION['loggedin_userid'];
 		$requestid = $_POST['request_id'];
@@ -116,27 +116,57 @@ if (!$conn->connect_errno) {
 	$result = $conn->query($query);
 	
 	while ($i = $result->fetch_object()) {
-		$queryTwo = "SELECT db_users.nickname " . 
+		// Select the nickname from the users table & join this with the request table based on the user id
+		// (matching the user id from both the users & request table). This user id also matches the user id from object $i.
+		$queryTwo = "SELECT db_users.nickname, db_users.id " . 
 			"FROM db_users INNER JOIN db_request ON db_users.id=db_request.id_user " . 
 			"WHERE db_request.id_user=" . $i->id_user . ";";
 
-		// Select the nickname from the users table & join this with the request table based on the user id
-		// (matching the user id from both the users & request table). This user id also matches the user id from object $i.
-		
 		$resultTwo = $conn->query($queryTwo);
 		$objectTwo = $resultTwo->fetch_object();
-		echo '<div class="panel panel-default">' . 
-				'<div class="panel-heading">' . 
-					'<form class="form-inline vote-buttons" action="" method="post" >' .
-						'<input name="request_id" type="hidden" value="' . $i->id . '" />' .
-						'<button type="submit" name="upvote" class="btn btn-default"><i class="glyphicon glyphicon-triangle-top"></i></button>' . 
-						'<button type="submit" name="downvote" class="btn btn-default"><i class="glyphicon glyphicon-triangle-bottom"></i></button>' .		
-						'<span class="feature-score">' . $i->score . '</span>' .
-					'</form>' .
-					'<h3 class="panel-title">' . $i->request . '</h3>' . 
-				'</div>' . 
-				'<div class="panel-body">Feature requested by <strong>' . $objectTwo->nickname . '</strong></div>' . 
-			'</div>';
+		
+		// Check if this user has already voted on a feature request, if so, disable the vote buttons
+		// Query for a row in the voting table which contains the current request_id AND the current user_id
+		$queryVoteCheck = "SELECT db_voting.* FROM db_voting WHERE db_voting.id_user = " . $_SESSION['loggedin_userid'] . 
+			" AND db_voting.id_votedrequest = " . $i->id . ";";  
+		
+		// Create the disabled state for the buttons
+		$btndisable = "disabled='disabled'";
+				
+		// Query the database and fetch the result(s)
+		$resultVC = $conn->query($queryVoteCheck);		
+		$objectVC = $resultVC->fetch_object();
+				
+		// Start creating the feature request HTML
+		$fr_html = '<div class="panel panel-default">' . 
+						'<div class="panel-body">' . 
+							'<form class="form-inline vote-buttons" action="" method="post" >' .
+								'<input name="request_id" type="hidden" value="' . $i->id . '" />' .
+								'<button type="submit" name="upvote" class="btn btn-success" ';
+		
+		// If a row was found in the voting table (= this user has voted on this request), add the disabled state to the buttons
+		if(!is_null($objectVC)) {
+			$fr_html .= $btndisable;
+		}
+		
+		// Add to the feature request HTML
+		$fr_html .=				'><i class="glyphicon glyphicon-triangle-top"></i></button>' . 
+								'<button type="submit" name="downvote" class="btn btn-danger" ';
+		
+		// If a row was found in the voting table, this button gets disabled too
+		if(!is_null($objectVC)) {
+			$fr_html .= $btndisable;
+		}
+		
+		// Add the rest of the feature request HTML
+		$fr_html .=				'><i class="glyphicon glyphicon-triangle-bottom"></i></button>' .		
+								'<span class="feature-score">' . $i->score . '</span>' .
+							'</form>' .
+							'<h3 class="panel-title"><strong>' . $i->request . '</strong> <span>- requested by ' . $objectTwo->nickname . '</span></h3>' . 
+						'</div>' . 
+					'</div>';							
+				
+		echo $fr_html;
 	}
 }
 ?>	
