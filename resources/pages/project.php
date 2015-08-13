@@ -41,7 +41,7 @@ if (!$conn->connect_errno) {
 ?>
 
 <div class="jumbotron">
-   	<img src="http://placehold.it/960x540" class="img-responsive" />
+<!--   	<img src="http://placehold.it/960x540" class="img-responsive" />-->
 	<h1 class="title">
 		<?php
 			echo $object->project_name . " <small>" . $object->project_company . "</small>";

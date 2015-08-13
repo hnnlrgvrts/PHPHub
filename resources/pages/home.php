@@ -29,7 +29,7 @@
 				'<a href="index.php?page=project&id=' . $i->id . '">' .
 				'<div class="col-sm-6 col-md-3">'.
 					'<div class="thumbnail">' .
-						'<img src="//placehold.it/480x270" alt="' . $i->project_name . '" />' .
+//						'<img src="//placehold.it/480x270" alt="' . $i->project_name . '" />' .
 						'<div class="caption">' .
 							'<h3 class="title">' . $i->project_name . '</h3>' .
 							'<p class="description">' . $i->project_description . '</p>' .
