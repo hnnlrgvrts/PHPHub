@@ -10,21 +10,79 @@ if (!$conn->connect_errno) {
 	// fetch_object() makes sure $result is (human) readable.
 	$object = $result->fetch_object();
 
+	// The following prints out what's in the $_POST variable if one of the forms is used, e.g. a feature request has been added or a vote has been submitted
+//	if(!empty($_POST)){
+//		print_r($_POST);
+//		echo "<br/>";
+//		
+//		foreach($_POST as $key => $value) {
+//		   echo "The HTML name: $key <br/>";
+//		   echo "The content of it: $value <br/>";
+//		}
+//	}
+	
 	// Add a new feature request
-	if (!empty($_POST)) {
+	if (!empty($_POST['request'])) {
 		//var_dump($_POST);
 		$request = $_POST['request'];
 		$userid = $_SESSION['loggedin_userid'];
-		$query = "INSERT INTO db_request (request,id_user,id_project)" . "VALUES ('" . 
+		$query = "INSERT INTO db_request (request,id_user,id_project)" . " VALUES ('" . 
 			$conn->real_escape_string($request) . "','" . 
 			$userid . "','" . 
 			$project . "')";
 		
-		if ($conn->query($query)) {
-			echo '<div class="alert alert-success" role="alert">Feature request successfully added!</div>';
+//		if ($conn->query($query)) {
+//			echo '<div class="alert alert-success" role="alert">Feature request successfully added!</div>';
+//		} else {
+//			echo '<div class="alert alert-warning" role="alert">Request could not be added to the database.</div>';
+//		}
+	}
+	//Upvote a feature request
+	if(isset($_POST['upvote'])) {
+		// Get user id & feature request id
+		$userid = $_SESSION['loggedin_userid'];
+		$requestid = $_POST['request_id'];
+		
+		// Update 2 tables of the db:
+		// 1. update the feature request record: score + 1
+		// 2. create new record in voting table with the id of the user that voted, the request voted on, and the type of vote.
+		$queryRequest = 'UPDATE db_request SET score = score + 1 WHERE db_request.id = ' . $requestid . ';';	
+		$queryVoting = 'INSERT INTO db_voting (id_user, id_votedrequest, type) VALUES(' . 
+			$userid . ',' .
+			$requestid . ',' .
+			'1'	. ')';
+		
+		// If both queries succeeded
+		if ($conn->query($queryRequest) && $conn->query($queryVoting)) {
+			// Show succesful feedback
+			echo '<div class="alert alert-success" role="alert">Successfully voted!</div>';
+		} else {
+			// Show negative feedback
+			echo '<div class="alert alert-warning" role="alert">Something went wrong while voting.</div>';
 		}
-		else {
-			echo '<div class="alert alert-warning" role="alert">Request could not be added to the database.</div>';
+	}
+	//Downvote a feature request
+	if(isset($_POST['downvote'])) 
+		// Get user id & feature request id
+		$userid = $_SESSION['loggedin_userid'];
+		$requestid = $_POST['request_id'];
+		
+		// Update 2 tables of the db:
+		// 1. update the feature request record: score - 1
+		// 2. create new record in voting table with the id of the user that voted, the request voted on, and the type of vote.
+		$queryRequest = 'UPDATE db_request SET score = score - 1 WHERE db_request.id = ' . $requestid . ' AND score > 0;';	
+		$queryVoting = 'INSERT INTO db_voting (id_user, id_votedrequest, type) VALUES(' . 
+			$userid . ',' .
+			$requestid . ',' .
+			'0'	. ')';
+		
+		// If both queries succeeded
+		if ($conn->query($queryRequest) && $conn->query($queryVoting)) {
+			// Show succesful feedback
+			echo '<div class="alert alert-success" role="alert">Successfully voted!</div>';
+		} else {
+			// Show negative feedback
+			echo '<div class="alert alert-warning" role="alert">Something went wrong while voting.</div>';
 		}
 	}
 }
@@ -69,7 +127,8 @@ if (!$conn->connect_errno) {
 		$objectTwo = $resultTwo->fetch_object();
 		echo '<div class="panel panel-default">' . 
 				'<div class="panel-heading">' . 
-					'<form class="form-inline vote-buttons">' .
+					'<form class="form-inline vote-buttons" action="" method="post" >' .
+						'<input name="request_id" type="hidden" value="' . $i->id . '" />' .
 						'<button type="submit" name="upvote" class="btn btn-default"><i class="glyphicon glyphicon-triangle-top"></i></button>' . 
 						'<button type="submit" name="downvote" class="btn btn-default"><i class="glyphicon glyphicon-triangle-bottom"></i></button>' .		
 						'<span class="feature-score">' . $i->score . '</span>' .
@@ -80,13 +139,6 @@ if (!$conn->connect_errno) {
 			'</div>';
 	}
 }
-
-?>		
-		<!-- jQuery -->
-		<script src='//code.jquery.com/jquery-2.1.4.min.js'></script>
-		<!-- Bootstrap JS -->
-		<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-		<!-- JS for voting -->
-		<script src="js/vote.js"></script>
-	</body>
-</html>
+?>	
+<!-- JS for voting -->
+<!--<script src="js/vote.js"></script>-->

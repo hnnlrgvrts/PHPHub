@@ -14,18 +14,3 @@
 .panel-heading h3 {
 	display: inline-block;
 }
-
-.description description2 {
-	word-break: break-all;
-}
-
-.imgcontainer {
-	width: 100%;
-	background-color: rgba(0, 0, 0, 0.2);
-}
-
-.imgcontainer img {
-	margin: 0 auto;
-	width: auto;
-	display: block;
-}

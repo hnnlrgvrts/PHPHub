@@ -64,6 +64,8 @@
 					<?php if(isset($_SESSION[ 'loggedin_user']) && 
 							 isset($_SESSION[ 'loggedin_role']) && 
 							 $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?> 
+<!--
+					Put the dropdown in comments because it only works on the homepage so far... Fix this or go with the solution provided below - put the actions directly in the navbar.
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions 
 							<span class="caret"></span>
@@ -84,14 +86,18 @@
 							</li>
 						</ul>
 					</li>
+-->
+					<li>
+						<a href="index.php?page=addproject">Add new project</a>
+					</li>
 					<?php } ?>
 				</ul>
 				<?php if (isset($_SESSION[ 'loggedin_user'])) { ?>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="#">
+						<p class="navbar-text">
 							<?php echo $_SESSION[ 'loggedin_user'] . " (" . $_SESSION[ 'loggedin_role'] . ")"; ?>
-						</a>
+						</p>
 					</li>
 					<li>
 						<a href="index.php?page=logout">Logout</a>
