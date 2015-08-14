@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Aug 11, 2015 at 03:18 PM
+-- Generation Time: Aug 14, 2015 at 12:42 AM
 -- Server version: 5.5.41-log
 -- PHP Version: 5.6.8
 
@@ -55,16 +55,17 @@ CREATE TABLE IF NOT EXISTS `db_request` (
   `request` varchar(3000) NOT NULL,
   `id_user` int(11) NOT NULL,
   `score` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `db_request`
 --
 
 INSERT INTO `db_request` (`id`, `id_project`, `request`, `id_user`, `score`) VALUES
-(25, 10, 'Actually being able to search', 3, 0),
-(26, 10, 'Change the color scheme', 4, 0),
-(27, 10, 'Search by sound sample', 1, 0);
+(25, 10, 'Actually being able to search', 3, 1),
+(26, 10, 'Change the color scheme', 4, 1),
+(27, 10, 'Search by sound sample', 1, 0),
+(29, 10, 'Search for games', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `db_users` (
   `email` varchar(255) NOT NULL,
   `picture` varchar(255) NOT NULL,
   `role` int(3) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `db_users`
@@ -102,7 +103,15 @@ CREATE TABLE IF NOT EXISTS `db_voting` (
   `id_user` int(11) NOT NULL,
   `id_votedrequest` int(11) NOT NULL,
   `type` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `db_voting`
+--
+
+INSERT INTO `db_voting` (`id`, `id_user`, `id_votedrequest`, `type`) VALUES
+(1, 1, 26, 1),
+(2, 4, 25, 1);
 
 --
 -- Indexes for dumped tables
@@ -145,17 +154,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `db_request`
 --
 ALTER TABLE `db_request`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `db_users`
 --
 ALTER TABLE `db_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `db_voting`
 --
 ALTER TABLE `db_voting`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
