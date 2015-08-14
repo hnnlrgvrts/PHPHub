@@ -6,11 +6,13 @@ $(document).ready(function () {
 		e.preventDefault();
 
 		// One of either buttons was clicked
-		var id = $(this).siblings('#fr-id').val(),
+		var id = $(this).siblings('#request_id').val(),
 			name = this.name,
-			dataString = "id=" + id,
-			url = "index.php?page=vote.php&projectid=";
+			dataString = "id=" + $(this).siblings('#request_id').val(),
+			url = "index.php?page=vote&projectid=" + $('.projectid').attr('id') + "&requestid=" + $(this).siblings('#request_id').val();
 
+		console.log(id, name, dataString, url);
+		
 		//3. Send an update for the related feature request to the db using ajax
 		$.ajax({
 			type: "POST", // type of the ajax call
@@ -27,7 +29,6 @@ $(document).ready(function () {
 					$('.jumbotron').after('<div id="fr-' + id + '-callback" style="display:none;" class="alert alert-danger" role="alert">' + msg.message + '</div>');
 				}
 				$('#fr-' + id + '-callback').slideDown();
-
 			},
 			error: function (e) {
 				//function executes when the call was a failure (= callback)

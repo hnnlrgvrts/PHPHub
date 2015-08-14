@@ -53,6 +53,7 @@ if (!$conn->connect_errno) {
 <?php if (isset($_SESSION['loggedin_user'])){ ?>
 <form class="form-inline feature-request-form" action="" method="post">
 	<div class="form-group">
+		<input type="hidden" id="<?php echo $_GET['id'] ?>" name="<?php echo $_GET['id'] ?>" class="projectid">
 		<label class="sr-only" for="request">Feature request</label>
 		<input type="text" class="form-control" id="request" placeholder="Feature request" name="request">
 	</div>
@@ -98,8 +99,8 @@ if (!$conn->connect_errno) {
 		// Start creating the feature request HTML
 		$fr_html = '<div class="panel panel-default">' . 
 						'<div class="panel-body">' . 
-							'<form class="form-inline vote-buttons" action="index.php?page=vote&projectid=' . $project . '" method="post" >' .
-								'<input name="request_id" type="hidden" value="' . $i->id . '" />' .
+							'<form class="form-inline vote-buttons" action="index.php?page=vote&projectid=' . $project . '&requestid=' . $i->id . '" method="post" >' .
+								'<input id="request_id" name="request_id" type="hidden" value="' . $i->id . '" />' .
 								'<button type="submit" name="upvote" class="btn btn-success" ';
 		
 		// If a row was found in the voting table (= this user has voted on this request), add the disabled state to the buttons
@@ -128,5 +129,3 @@ if (!$conn->connect_errno) {
 	}
 }
 ?>	
-<!-- JS for voting -->
-<!--<script src="js/vote.js"></script>-->

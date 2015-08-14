@@ -19,7 +19,7 @@ if (!$conn->connect_errno) {
 	try {
 		// Get user id & feature request id
 		$userid = $_SESSION['loggedin_userid'];
-		$requestid = $_POST['request_id'];
+		$requestid = $_GET['requestid'];
 		$queryRequest = "";
 		$queryVoting = "";
 
@@ -45,7 +45,6 @@ if (!$conn->connect_errno) {
 					$requestid . ',' .
 					'0'	. ')';
 		}
-		
 		// If both queries succeeded
 		if ($conn->query($queryRequest) && $conn->query($queryVoting)) {
 			// Show succesful feedback
