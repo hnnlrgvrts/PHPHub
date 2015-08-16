@@ -6,20 +6,28 @@ $(document).ready(function () {
 		
 		// One of either buttons was clicked
 		var reqid = $(this).siblings('#request_id').val(),
+		    uid = $("#hiddenUserId").val(),
 			name = this.name,
-			dataString = "id=" + reqid,
 			//url = "index.php?page=vote&projectid=" + $('.projectid').attr('id') + "&requestid=" + reqid;
 			url = "resources/pages/vote.php"
 
-		console.log(reqid, name, dataString, url);
-		
 		//3. Send an update for the related feature request to the db using ajax
 		$.ajax({
 			method: "POST",
 			url: url, 
-			data:{dataString} 
+			data:{"userid":uid,
+				  "requestid":reqid,
+				  "type":name} 
 		}).done(function(res){
-			console.log(res)
+			console.log(res);
+			if(res.type == 'upvote'){
+				var newScore = parseInt($(this).siblings('feature-score').html())+1;
+				$(this).siblings('feature-score').html(newScore);
+			}else{
+				var newScore = parseInt($(this).siblings('feature-score').html())-1;
+				$(this).siblings('feature-score').html(newScore);
+			}
+			console.log(newScore);
 		});
 		console.log("test");
 		// Prevent default submit button action (= reload page and POST form)

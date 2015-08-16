@@ -14,3 +14,9 @@
 .panel h3 {
 	display: inline-block;
 }
+.avatar{
+	max-width: 40px;
+	border-radius: 50%;
+	display: inline-block;
+	margin-top: 5px;
+}

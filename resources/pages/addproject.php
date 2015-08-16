@@ -56,7 +56,7 @@ if (!empty($_POST)) {
 		// Executes query on connection & returns true (= success) or false (= fail).
 		// $conn->real_escape_string : prevent html input from being rendered.
 		if ($conn->query($query)) {
-			// header("Location: index.php");
+		header("Location: index.php");
 		}
 	}
 }
