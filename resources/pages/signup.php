@@ -6,6 +6,48 @@ if (!empty($_POST)) {
 	// cost tells hash engine how many times to repeat --> encrypt. x 12
 	$options = [ 'cost' => 12,];
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT, $options); // php 5.5
+	$email = $_POST['email'];
+	$imageFileType = pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION);
+	$target_dir = "uploads/avatars/av"; //where files get stored.
+	$target_file  = $target_dir.$nickname.".".$imageFileType;
+	//basename = Given a string containing the path to a file or directory, this function will return the trailing name component.
+	$uploadOk = 1;
+	echo "end of vars";
+	print_r($_FILES);
+	
+	//Check if image file is an actual image.
+	if(isset($_POST["submit"])){
+		$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+		var_dump($_FILES);
+		echo "into submit check";
+		if ($check !== false) {
+			$uploadOk = 1;
+		}
+		else
+		{
+			$uploadOk = 0;
+		}
+
+	}
+	
+	// Allow certain file formats
+	if($imageFileType != "png") {
+	    echo "Sorry, only PNG are allowed.";
+	    $uploadOk = 0;
+	}
+
+	if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+	// if everything is ok, try to upload file
+	} else {
+    	if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        	echo "The file ". basename($_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    	} else {
+        	echo "Sorry, there was an error uploading your file.";
+    	}
+	}
+
+	//basename = Given a string containing the path to a file or directory, this function will return the trailing name component.
 	// connect with database
 	$conn = new mysqli("localhost", "root", "root", "phphub");
 	
@@ -43,7 +85,7 @@ if (!empty($_POST)) {
 		?>
 	</h1>
 </div>
-<form class="form-horizontal" action="" method="post">
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label for="nickname" class="col-sm-2 control-label">Nickname</label>
 		<div class="col-sm-10">
@@ -63,8 +105,14 @@ if (!empty($_POST)) {
 		</div>
 	</div>
 	<div class="form-group">
+	<form action="upload.php" method="post" enctype="multipart/form-data">
+    <label for="fileToUpload" class="col-sm-2 control-label">Select image</label>
+    <div class="col-sm-offset-2 col-sm-10">
+    <input type="file" name="fileToUpload" id="fileToUpload"></div></div>
+    <div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<button type="submit" class="btn btn-primary">Sign up!</button>
 		</div>
 	</div>
+</form>
 </form>

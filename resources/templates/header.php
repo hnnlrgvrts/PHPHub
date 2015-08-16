@@ -36,6 +36,9 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="/css/screen.css">
 
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="js/vote.js"></script>
+
 	<title>
 		<?php echo $title; ?>
 	</title>
@@ -44,6 +47,7 @@
 <body>
 	<!-- Navbar -->
 	<nav class="navbar navbar-static-top navbar-inverse">
+		<input type="hidden" id="hiddenUserId" value=<?php echo '"'.$_SESSION['loggedin_userid'].'"'; ?>>
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -95,6 +99,7 @@
 				<?php if (isset($_SESSION[ 'loggedin_user'])) { ?>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
+						<img <?php echo 'src = "uploads/avatars/av'.$_SESSION['loggedin_user'].'.png"'; ?> class="img-responsive avatar" />
 						<p class="navbar-text">
 							<?php echo $_SESSION[ 'loggedin_user'] . " (" . $_SESSION[ 'loggedin_role'] . ")"; ?>
 						</p>

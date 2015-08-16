@@ -41,7 +41,7 @@ if (!$conn->connect_errno) {
 ?>
 
 <div class="jumbotron">
-<!--   	<img src="http://placehold.it/960x540" class="img-responsive" />-->
+<img <?php echo 'src = "uploads/'.$object->project_name.$object->project_company.'.png"'; ?> class="img-responsive" />
 	<h1 class="title">
 		<?php
 			echo $object->project_name . " <small>" . $object->project_company . "</small>";
@@ -84,18 +84,20 @@ if (!$conn->connect_errno) {
 		$resultTwo = $conn->query($queryTwo);
 		$objectTwo = $resultTwo->fetch_object();
 		
-		// Check if this user has already voted on a feature request, if so, disable the vote buttons
-		// Query for a row in the voting table which contains the current request_id AND the current user_id
-		$queryVoteCheck = "SELECT db_voting.* FROM db_voting WHERE db_voting.id_user = " . $_SESSION['loggedin_userid'] . 
-			" AND db_voting.id_votedrequest = " . $i->id . ";";  
+		if(isset($_SESSION['loggedin_userid'])){
+			// Check if this user has already voted on a feature request, if so, disable the vote buttons
+			// Query for a row in the voting table which contains the current request_id AND the current user_id
+			$queryVoteCheck = "SELECT db_voting.* FROM db_voting WHERE db_voting.id_user = " . $_SESSION['loggedin_userid'] . 
+				" AND db_voting.id_votedrequest = " . $i->id . ";";  
+					
+			// Query the database and fetch the result(s)
+			$resultVC = $conn->query($queryVoteCheck);		
+			$objectVC = $resultVC->fetch_object();
+		}
 		
 		// Create the disabled state for the buttons
 		$btndisable = "disabled='disabled'";
-				
-		// Query the database and fetch the result(s)
-		$resultVC = $conn->query($queryVoteCheck);		
-		$objectVC = $resultVC->fetch_object();
-				
+
 		// Start creating the feature request HTML
 		$fr_html = '<div class="panel panel-default">' . 
 						'<div class="panel-body">' . 
@@ -104,7 +106,8 @@ if (!$conn->connect_errno) {
 								'<button type="submit" name="upvote" class="btn btn-success" ';
 		
 		// If a row was found in the voting table (= this user has voted on this request), add the disabled state to the buttons
-		if(!is_null($objectVC)) {
+		// disabled if the user is not logged in too
+		if(!isset($_SESSION['loggedin_userid']) || !is_null($objectVC)) {
 			$fr_html .= $btndisable;
 		}
 		
@@ -113,7 +116,8 @@ if (!$conn->connect_errno) {
 								'<button type="submit" name="downvote" class="btn btn-danger" ';
 		
 		// If a row was found in the voting table, this button gets disabled too
-		if(!is_null($objectVC)) {
+		// disabled if the user is not logged in too
+		if(!isset($_SESSION['loggedin_userid']) || !is_null($objectVC)) {
 			$fr_html .= $btndisable;
 		}
 		
