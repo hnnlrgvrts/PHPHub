@@ -36,6 +36,9 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="/css/screen.css">
 
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="js/vote.js"></script>
+
 	<title>
 		<?php echo $title; ?>
 	</title>

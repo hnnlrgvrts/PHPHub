@@ -54,6 +54,7 @@ if (!$conn->connect_errno) {
 		} else {
 			// Show negative feedback
 			$feedback['message'] = "Something went wrong with your vote. Please try again!";
+			$feedback['POST'] = $_POST;
 			$feedback['status'] = false;
 		}
 	} catch(Exception $e) {
@@ -66,6 +67,5 @@ if (!$conn->connect_errno) {
 	header('Content-type: application/json');
 	echo json_encode($feedback);
 }
-header('Location: /index.php?page=project&id=' . $_GET['projectid']);
 die(); // We use die() for reasons explained here: http://thedailywtf.com/articles/WellIntentioned-Destruction
 ?>
