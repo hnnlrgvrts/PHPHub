@@ -41,7 +41,7 @@ if (!$conn->connect_errno) {
 ?>
 
 <div class="jumbotron">
-<img <?php echo 'src = "uploads/'.$object->project_name.$object->project_company.'.png"'; ?> class="img-responsive" />
+<img <?php echo 'src = "uploads/'.$object->project_name.$object->project_company.'.png"'; ?> class="img-responsive projectimg" />
 	<h1 class="title">
 		<?php
 			echo $object->project_name . " <small>" . $object->project_company . "</small>";
@@ -49,6 +49,17 @@ if (!$conn->connect_errno) {
     </h1>
     <h2 class="description2"><?php echo $object->project_description; ?></h2>
 </div>
+<?php if(isset($_SESSION[ 'loggedin_user']) && 
+							 isset($_SESSION[ 'loggedin_role']) && 
+							 $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?> 
+<form action="">
+    <input type="submit" value="Edit">
+</form>
+<form action="">
+    <input type="submit" value="Delete">
+</form>
+					
+					<?php } ?>
 	
 <?php if (isset($_SESSION['loggedin_user'])){ ?>
 <form class="form-inline feature-request-form" action="" method="post">
@@ -131,5 +142,6 @@ if (!$conn->connect_errno) {
 				
 		echo $fr_html;
 	}
+
 }
 ?>	
