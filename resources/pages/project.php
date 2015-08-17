@@ -48,18 +48,16 @@ if (!$conn->connect_errno) {
 		</h2>
 	</form>
 </div>
-<?php if(isset($_SESSION[ 'loggedin_user']) &&
-							isset($_SESSION[ 'loggedin_role']) &&
-$_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?>
-<button  class="btn glyphicon glyphicon-pencil" type="submit" onclick="editproject()" type="submit" ></button>
+<?php if(isset($_SESSION[ 'loggedin_user']) && isset($_SESSION[ 'loggedin_role']) && $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?>
 <form action="index.php?page=deleteproject" method="post">
-<input type="hidden" name="inputid" value="<?php echo $_GET['id'] ?>">
-<button type="submit" value="X" class="btn "><i class="glyphicon glyphicon-remove"></i></button>
+	<input type="hidden" name="inputid" value="<?php echo $_GET['id'] ?>">
+	<button  class="btn glyphicon glyphicon-pencil" type="submit" onclick="editproject()" type="submit" ></button>
+	<button type="submit" value="X" class="btn "><i class="glyphicon glyphicon-remove"></i></button>
 </form>
-
 <?php } ?>
 
 <?php if (isset($_SESSION['loggedin_user'])){ ?>
+<hr/>
 <form class="form-inline feature-request-form" action="" method="post">
 	<div class="form-group">
 		<input type="hidden" id="<?php echo $_GET['id'] ?>" name="<?php echo $_GET['id'] ?>" class="projectid">
@@ -68,6 +66,7 @@ $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?>
 	</div>
 	<button type="submit" name="submit" class="btn btn-default">Submit feature request</button>
 </form>
+<hr/>
 <?php } ?>
 <?php
 if (!$conn->connect_errno) {
@@ -104,9 +103,9 @@ if (!$conn->connect_errno) {
 		// Create the disabled state for the buttons
 		$btndisable = "disabled='disabled'";
 		// Start creating the feature request HTML
-		$fr_html = '<div class="panel panel-default">' .
+		$fr_html = '<div class="panel panel-default feature-request">' .
 							'<div class="panel-body">' .
-									'<form class="form-inline vote-buttons" action="index.php?page=vote&projectid=' . $project . '&requestid=' . $i->id . '" method="post" >' .
+									'<form class="form-inline feature-request-form" action="index.php?page=vote&projectid=' . $project . '&requestid=' . $i->id . '" method="post" >' .
 											'<input id="request_id" name="request_id" type="hidden" value="' . $i->id . '" />' .
 											'<button type="submit" name="upvote" class="btn btn-success" ';
 					
@@ -127,24 +126,23 @@ if (!$conn->connect_errno) {
 					}
 					
 					// Add the rest of the feature request HTML
-											$fr_html .=				'><i class="glyphicon glyphicon-triangle-bottom"></i></button>' .
+					$fr_html .=				'><i class="glyphicon glyphicon-triangle-bottom"></i></button>' .
 											'<span class="feature-score">' . $i->score . '</span>' .
 									'</form>';
-					if(isset($_SESSION[ 'loggedin_user']) && isset($_SESSION[ 'loggedin_role']) && $_SESSION[ 'loggedin_role'] == 1 || $_SESSION['loggedin_userid'] === $i->id_user) {
-							 $fr_html .=	'<form action="index.php?page=editrequest" method="post" id="requestcontainer">' .
-								 				'<h3 class="panel-title" id="prependTarget">' .
-								 					'<strong id="currentRequest">' . $i->request . '</strong>' .
-								 					'<span>- requested by ' . $objectTwo->nickname . '</span>' .
-								 				'</h3>' .								
+					if(isset($_SESSION['loggedin_user']) && isset($_SESSION['loggedin_role']) && $_SESSION['loggedin_role'] == 1 || $_SESSION['loggedin_userid'] === $i->id_user) {
+							 $fr_html .=	'<h3 class="panel-title" id="prependTarget">' .
+								 				'<strong id="currentRequest">' . $i->request . ' </strong>' .
+								 				'<span>- requested by ' . $objectTwo->nickname . '</span>' .
+								 			'</h3>' .								
+											'<form action="index.php?page=editrequest" method="post" id="requestcontainer" class="feature-request-form">' .
 												'<input name="requestid" type="hidden" value="' . $i->id . '">' .
 												'<input name="projectid" type="hidden" value="' . $project . '">' .
 												'<button id ="confirmEditRequest" type="submit" class="btn hidden">Submit</button>' .
 											'</form>' .
-											'<button class="btn glyphicon glyphicon-pencil" onclick="editrequest()"></button>' .
-											'</div>' .
-							 				'<form action="index.php?page=deleterequest" method="post">' .
+							 				'<form action="index.php?page=deleterequest" method="post" class="feature-request-form">' .
 												'<input name="requestid" type="hidden" value="' . $i->id . '">' .
 												'<input name="projectid" type="hidden" value="' . $project . '">' .
+												'<button class="btn glyphicon glyphicon-pencil" onclick="editrequest()"></button>' .
 												'<button type="submit" class="btn"><i class="glyphicon glyphicon-remove"></i></button>' .
 											'</form>' .
 									'</div>';

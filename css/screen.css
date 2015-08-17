@@ -1,10 +1,10 @@
-.feature-request-form {
-	margin-bottom: 30px;
+.feature-request {
+	margin-top: 12px;
 }
 
-.panel .vote-buttons {
-	display: inline-block;
+.feature-request-form {
 	margin-right: 50px;
+	display: inline-block;
 }
 
 .panel .feature-score {
