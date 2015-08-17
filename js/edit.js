@@ -1,4 +1,4 @@
-function edit() {
+function editproject() {
     console.log("clicked");
     // toon/hide de inputvelden
     if ($('#titleinput').length) { // check of titleinput bestaat
@@ -23,3 +23,14 @@ function edit() {
     $('#projecttitle').toggleClass('hidden');
     $('#projectdescription').toggleClass('hidden');
 };
+function editrequest(){
+    if($('#requestinput').length){
+        $('#requestinput').remove();
+    }else{
+        var currentRequest = $('#currentRequest').html();
+        var html = "<input type='text' name='newRequest' id='requestinput' value='"+currentRequest+"'/>";
+        $('#prependTarget').prepend(html);
+    }
+    $('#currentRequest').toggleClass('hidden');
+    $('#confirmEditRequest').toggleClass('hidden');
+}

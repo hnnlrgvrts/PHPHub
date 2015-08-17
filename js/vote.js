@@ -9,8 +9,11 @@ $(document).ready(function () {
 		    uid = $("#hiddenUserId").val(),
 			name = this.name,
 			//url = "index.php?page=vote&projectid=" + $('.projectid').attr('id') + "&requestid=" + reqid;
-			url = "resources/pages/vote.php"
-
+			url = "resources/pages/vote.php",
+			targetScore = $(this).siblings('.feature-score'),
+			clickedButton = $(this),
+			siblingButton = $(this).siblings('.btn'),
+			score = parseInt($(this).siblings('.feature-score').html());
 		//3. Send an update for the related feature request to the db using ajax
 		$.ajax({
 			method: "POST",
@@ -21,13 +24,14 @@ $(document).ready(function () {
 		}).done(function(res){
 			console.log(res);
 			if(res.type == 'upvote'){
-				var newScore = parseInt($(this).siblings('feature-score').html())+1;
-				$(this).siblings('feature-score').html(newScore);
+				score++;
+				targetScore.html(score);
 			}else{
-				var newScore = parseInt($(this).siblings('feature-score').html())-1;
-				$(this).siblings('feature-score').html(newScore);
+				score--;
+				targetScore.html(score);
 			}
-			console.log(newScore);
+			clickedButton.attr('disabled', true);
+			siblingButton.attr('disabled', true);
 		});
 		console.log("test");
 		// Prevent default submit button action (= reload page and POST form)
