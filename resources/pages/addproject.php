@@ -25,11 +25,7 @@ if (!empty($_POST)) {
 
 	}
 	
-	// Allow certain file formats
-	if($imageFileType != "png") {
-	    echo "Sorry, only PNG are allowed.";
-	    $uploadOk = 0;
-	}
+	
 
 	if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
@@ -48,10 +44,11 @@ if (!empty($_POST)) {
 	
 	if (!$conn->connect_errno) {
 		// Prepare the query, protects from SQL injection (real_escape_string)
-		$query = "INSERT INTO db_project (project_name, project_company, project_description) VALUES ('" . 
+		$query = "INSERT INTO db_project (project_name, project_company, project_description, project_picture) VALUES ('" . 
 			$conn->real_escape_string($project_name) . "','" . 
 			$conn->real_escape_string($project_company) . "','" . 
-			$conn->real_escape_string($project_description) . "')";
+			$conn->real_escape_string($project_description) . "','".
+			$conn->real_escape_string($project_name.$project_company.".".$imageFileType)."');";
 
 		// Executes query on connection & returns true (= success) or false (= fail).
 		// $conn->real_escape_string : prevent html input from being rendered.

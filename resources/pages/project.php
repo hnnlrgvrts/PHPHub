@@ -36,12 +36,13 @@ if (!$conn->connect_errno) {
 	}
 }
 ?>
-<div class="jumbotron" id="projectcontainer">
-	<form action="" method="post">
+<div class="jumbotron" >
+	<form id="projectcontainer" action="index.php?page=editproject" method="post">
+		<input type="hidden" name="inputid" value="<?php echo $_GET['id'] ?>">
 		<h1 class="title" id="projecttitle">
-			<?php echo $object->project_name . " <small>" . $object->project_company . "</small>";?>
+			<?php echo $object->project_name;?>
 		</h1>
-		<img <?php echo 'src = "uploads/'.$object->project_name.$object->project_company.'.png"'; ?> class="img-responsive projectimg" />
+		<img <?php echo 'src = "uploads/'.$object->project_picture.'"'; ?> class="img-responsive projectimg" />
 		<h2 class="description2" id="projectdescription">
 			<?php echo $object->project_description; ?>
 		</h2>
@@ -51,6 +52,10 @@ if (!$conn->connect_errno) {
 							isset($_SESSION[ 'loggedin_role']) &&
 $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?>
 <button type="submit" onclick="edit()" type="submit" value="Edit">Edit</button>
+<form action="index.php?page=deleteproject" method="post">
+<input type="hidden" name="inputid" value="<?php echo $_GET['id'] ?>">
+<input type="submit" value="Delete">
+</form>
 
 <?php } ?>
 

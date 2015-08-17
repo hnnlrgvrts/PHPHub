@@ -9,11 +9,11 @@ function edit() {
         $('#confirminput').remove();
     } else {
         // als titleinput nog niet bestaat, zet ze in html met de juiste data
-        var currentTitle;
-        var currentDesc;
+        var currentTitle = $('#projecttitle').html();
+        var currentDesc = $('#projectdescription').html();
         // maak de html
-        var htmlOne = "<input id='titleinput' type='text' value='title'>";
-        var htmlTwo = "<input id='descriptioninput' type='text' value='description'>";
+        var htmlOne = "<input name='titleinput'id='titleinput' type='text' value='"+currentTitle+"'>";
+        var htmlTwo = "<textarea name='descriptioninput' id='descriptioninput' cols='30' rows='10'>"+currentDesc+"</textarea>";
         var htmlThree = "<input id='confirminput' type='submit' value='confirm'>";
         // zet daarna in de html vooraan(prepend) of achteraan(append)
         $('#projectcontainer').prepend(htmlOne);
