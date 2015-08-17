@@ -14,22 +14,23 @@
 .panel h3 {
 	display: inline-block;
 }
-.avatar{
+
+.avatar {
 	max-width: 40px;
 	border-radius: 50%;
 	display: inline-block;
 	margin-top: 5px;
 }
-.projectimg
-{
-max-width: 400px;	
+
+.projectimg {
+	max-width: 400px;	
 }
-.description2
-{
-font-size: 1em;
-max-width: 400px;
+
+.description2 {
+	font-size: 1em;
+	max-width: 400px;
 }
-.hidden
-{
+
+.hidden {
 	display: none;
 }
