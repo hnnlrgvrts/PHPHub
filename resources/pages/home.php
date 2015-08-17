@@ -23,11 +23,13 @@
 
 		// $result fetches data from the table of the database 
 		$result=$conn->query($query);        
-
+		$counter = 0;
 		while ($i=$result->fetch_object()) {
+			$counter++;
+			
 			echo
-				'<a href="index.php?page=project&id=' . $i->id . '">' .
-				'<div class="col-sm-6 col-md-3">'.
+				// '<a class="col-sm-6 col-md-3" href="index.php?page=project&id=' . $i->id . '">' .
+				'<div class="col-sm-6 col-md-3" onclick="location.href=\'index.php?page=project&id=' . $i->id . '\'">'.
 					'<div class="thumbnail">' .
 //						'<img src="//placehold.it/480x270" alt="' . $i->project_name . '" />' .
 						'<div class="caption">' .
@@ -35,10 +37,14 @@
 							'<p class="description">' . $i->project_description . '</p>' .
 						'</div>' .
 					'</div>' .
-				'</div>' . 
-				'</a>';
-		  # code...
-		}
+				'</div>'; 
+				// '</a>';
+		  		if($counter == 4){
+		  			echo '<div class="clearfix visible"></div>';
+		  		}
+		  	}
+		  	
 	}
+
 	?>
 </div>
