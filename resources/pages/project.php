@@ -51,7 +51,7 @@ if (!$conn->connect_errno) {
 <?php if(isset($_SESSION[ 'loggedin_user']) &&
 							isset($_SESSION[ 'loggedin_role']) &&
 $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?>
-<button  class="btn glyphicon glyphicon-pencil" type="submit" onclick="edit()" type="submit" ></button>
+<button  class="btn glyphicon glyphicon-pencil" type="submit" onclick="editproject()" type="submit" ></button>
 <form action="index.php?page=deleteproject" method="post">
 <input type="hidden" name="inputid" value="<?php echo $_GET['id'] ?>">
 <button type="submit" value="X" class="btn "><i class="glyphicon glyphicon-remove"></i></button>
