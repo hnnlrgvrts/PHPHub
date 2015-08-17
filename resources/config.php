@@ -23,6 +23,7 @@ $config = array(
 		"logout" => "Logout",
 		"addproject" => "Add a new project",
 		"project" => "Project page",
+        "manageusers" => "Manage users",
 		"error" => "Oops! Something went wrong"
 	)
 );

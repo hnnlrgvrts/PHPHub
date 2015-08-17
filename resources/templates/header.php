@@ -75,31 +75,11 @@
 					<?php if(isset($_SESSION[ 'loggedin_user']) && 
 							 isset($_SESSION[ 'loggedin_role']) && 
 							 $_SESSION[ 'loggedin_role'] == 1 ) { //Means we 're logged in as an admin ?> 
-<!--
-					Put the dropdown in comments because it only works on the homepage so far... Fix this or go with the solution provided below - put the actions directly in the navbar.
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions 
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="index.php?page=addproject">Add new project</a>
-							</li>
-							<li>
-								<a href="#">Edit Admins</a>
-							</li>
-							<li>
-								<a href="#">Something else here</a>
-							</li>
-							<li role="separator" class="divider"></li>
-							<li>
-								<a href="#">Separated link</a>
-							</li>
-						</ul>
-					</li>
--->
 					<li>
 						<a href="index.php?page=addproject">Add new project</a>
+					</li>
+					<li>
+						<a href="index.php?page=manageusers">Manage users</a>
 					</li>
 					<?php } ?>
 				</ul>
