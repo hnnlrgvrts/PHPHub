@@ -24,7 +24,10 @@ For more information, please refer to: http://code.tutsplus.com/tutorials/organi
 * See a single project in detail
 * Add a feature request
 * Vote for a feature request
+* Edit your own project(s)
 
 As an admin:
 
 * Add a new project
+* Edit/remove all projects
+* Edit user roles
