@@ -1,6 +1,6 @@
 // Wait for DOM (= full document) to be loaded
 $(document).ready(function () {
-	console.log('do I even get loaded');
+	// console.log('do I even get loaded');
 	//1. Detect vote button click
 	$('button', '.vote-buttons').on('click', function (e) {
 		
@@ -33,7 +33,7 @@ $(document).ready(function () {
 			clickedButton.attr('disabled', true);
 			siblingButton.attr('disabled', true);
 		});
-		console.log("test");
+		// console.log("test");
 		// Prevent default submit button action (= reload page and POST form)
 		e.preventDefault();
 		return false; //AVOID PAGE RELOAD WHEN CLICKING ON ONE OF THE BUTTONS
