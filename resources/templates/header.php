@@ -38,6 +38,7 @@
 
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="js/vote.js"></script>
+	<script src="js/edit.js"></script>
 
 	<title>
 		<?php echo $title; ?>
@@ -47,7 +48,13 @@
 <body>
 	<!-- Navbar -->
 	<nav class="navbar navbar-static-top navbar-inverse">
-		<input type="hidden" id="hiddenUserId" value=<?php echo '"'.$_SESSION['loggedin_userid'].'"'; ?>>
+		<input type="hidden" id="hiddenUserId" value=
+			<?php
+			if(isset($_SESSION['loggedin_userid'])){
+				echo '"'.$_SESSION['loggedin_userid'].'"';
+			};
+			?>
+		>
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">

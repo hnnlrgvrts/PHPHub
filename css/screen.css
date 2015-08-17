@@ -29,3 +29,7 @@ max-width: 400px;
 font-size: 1em;
 max-width: 400px;
 }
+.hidden
+{
+	display: none;
+}
