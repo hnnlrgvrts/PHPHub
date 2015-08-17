@@ -131,26 +131,24 @@ if (!$conn->connect_errno) {
 											'<span class="feature-score">' . $i->score . '</span>' .
 									'</form>';
 					if(isset($_SESSION[ 'loggedin_user']) && isset($_SESSION[ 'loggedin_role']) && $_SESSION[ 'loggedin_role'] == 1 || $_SESSION['loggedin_userid'] === $i->id_user) {
-							 $fr_html .=	'<form action="index.php?page=editrequest" method="post" id="requestcontainer">'.
-								 				'<h3 class="panel-title" id="prependTarget">'.
-								 					'<strong id="currentRequest">'.$i->request.'</strong>'.
-								 					'<span>- requested by '.$objectTwo->nickname.'</span>'.
-								 				'</h3>'.								
-												'<input name="requestid" type="hidden" value="'.$i->id.'">'.
-												'<input name="projectid" type="hidden" value="'.$project.'">'.
-												'<button id ="confirmEditRequest" type="submit" class="btn hidden">Submit</button>'.
-											'</form>'.
-											'<button class="btn glyphicon glyphicon-pencil" onclick="editrequest()"></button>'.
-											'</div>'.
-							 				'<form action="index.php?page=deleterequest" method="post">'.
-												'<input name="requestid" type="hidden" value="'.$i->id.'">'.
-												'<input name="projectid" type="hidden" value="'.$project.'">'.
-												'<button type="submit" class="btn"><i class="glyphicon glyphicon-remove"></i></button>'.
-											'</form>'.
+							 $fr_html .=	'<form action="index.php?page=editrequest" method="post" id="requestcontainer">' .
+								 				'<h3 class="panel-title" id="prependTarget">' .
+								 					'<strong id="currentRequest">' . $i->request . '</strong>' .
+								 					'<span>- requested by ' . $objectTwo->nickname . '</span>' .
+								 				'</h3>' .								
+												'<input name="requestid" type="hidden" value="' . $i->id . '">' .
+												'<input name="projectid" type="hidden" value="' . $project . '">' .
+												'<button id ="confirmEditRequest" type="submit" class="btn hidden">Submit</button>' .
+											'</form>' .
+											'<button class="btn glyphicon glyphicon-pencil" onclick="editrequest()"></button>' .
+											'</div>' .
+							 				'<form action="index.php?page=deleterequest" method="post">' .
+												'<input name="requestid" type="hidden" value="' . $i->id . '">' .
+												'<input name="projectid" type="hidden" value="' . $project . '">' .
+												'<button type="submit" class="btn"><i class="glyphicon glyphicon-remove"></i></button>' .
+											'</form>' .
 									'</div>';
-					}
-					else
-					{
+					} else {
 						$fr_html .= '<h3 class="panel-title"><strong id="currentRequest">' . $i->request . '</strong> <span>- requested by ' . $objectTwo->nickname . '</span></h3>' .
 								'</div>'.
 							'</div>';
