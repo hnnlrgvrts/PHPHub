@@ -26,6 +26,10 @@
 	margin-top: 5px;
 }
 
+.margin-bottom {
+	margin-bottom: 10px;
+}
+
 .projectimg {
 	max-width: 100%;
 	display: inline;
