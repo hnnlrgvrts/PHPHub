@@ -27,8 +27,14 @@
 				// var_dump($result);
 				
 				if($result) {
-					// If the update succeeded, refresh the page to make the changes appear
-					header("Refresh:0");
+					// If the update succeeded, refresh the page to make the changes appear or redirect to homepage if the current user lost his privileges
+					var_dump($_SESSION);
+					if($_POST['userid'] == $_SESSION['loggedin_userid'] && $user_role !== 1) {
+						$_SESSION['loggedin_role'] = $user_role;
+						header("Location: index.php");
+					} else {
+						header("Refresh:0");
+					}
 				}
 			}
 		}
@@ -36,7 +42,7 @@
 ?>
 
 <div class="row">
-	<div class="col-xs-8 col-xs-offset-2">
+	<div class="col-lg-8 col-lg-offset-2">
 		<?php
 		$conn = new mysqli("localhost", "root", "root", "phphub");
 		

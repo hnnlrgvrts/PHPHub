@@ -37,6 +37,7 @@ if (!empty($_POST)) {
 			//}
 
 			// Redirect to the index page while staying logged in.
+			// var_dump($_SESSION);
 			header("Location: index.php");
 		} else {
 			echo "Login failed! Please try again - if you know the proper credentials, that is.";

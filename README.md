@@ -24,7 +24,7 @@ For more information, please refer to: http://code.tutsplus.com/tutorials/organi
 * See a single project in detail
 * Add a feature request
 * Vote for a feature request
-* Edit your own project(s)
+* Edit/remove your own project(s)
 
 As an admin:
 
