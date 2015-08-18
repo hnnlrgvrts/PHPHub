@@ -7,8 +7,12 @@ if (!empty($_POST)) {
 	$options = [ 'cost' => 12,];
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT, $options); // php 5.5
 	$email = $_POST['email'];
+	
 	$imageFileType = pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION);
+	var_dump($imageFileType);
+
 	$target_dir = "uploads/avatars/av"; //where files get stored.
+	$target_filename = "av" . $nickname . "." . $imageFileType;
 	$target_file  = $target_dir.$nickname.".".$imageFileType;
 	//basename = Given a string containing the path to a file or directory, this function will return the trailing name component.
 	$uploadOk = 1;
@@ -31,8 +35,8 @@ if (!empty($_POST)) {
 	}
 	
 	// Allow certain file formats
-	if($imageFileType != "png") {
-	    echo "Sorry, only PNG are allowed.";
+	if($imageFileType != "png" || $imageFileType != "jpg") {
+	    echo "Sorry, only .png or .jpg are allowed.";
 	    $uploadOk = 0;
 	}
 
@@ -47,13 +51,12 @@ if (!empty($_POST)) {
     	}
 	}
 
-	//basename = Given a string containing the path to a file or directory, this function will return the trailing name component.
 	// connect with database
 	$conn = new mysqli("localhost", "root", "root", "phphub");
 	
 	if (!$conn->connect_errno) {
 		// prepare the query, protect against SQL injection (real_escape_string)
-		$query = "INSERT INTO db_users (nickname, password, email) VALUES ('".$conn->real_escape_string($nickname)."','".$password."','".$email."')";
+		$query = "INSERT INTO db_users (nickname, password, email, picture) VALUES ('".$conn->real_escape_string($nickname)."','".$password."','".$email."','" . $target_filename . "')";
 		// execute query on connection, returns true/false. 
 		// true = success, false = fail.
 		// email & password has verification so these can not be rendered. Nickname can, however. 
@@ -62,6 +65,7 @@ if (!empty($_POST)) {
 				// Store session variables after successful registration (session has already been started in header.php).
 				$_SESSION['loggedin_user'] = $nickname;
 				$_SESSION['loggedin_role'] = 0;
+				$_SESSION['loggedin_picture'] = $target_filename;
 			} else {
 				var_dump($_SESSION);
 			}

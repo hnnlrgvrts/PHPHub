@@ -30,6 +30,7 @@ if (!empty($_POST)) {
 				$_SESSION['loggedin_user'] = $row_user['nickname'];
 				$_SESSION['loggedin_role'] = $row_user['role'];
 				$_SESSION['loggedin_userid'] = $row_user['id'];
+				$_SESSION['loggedin_picture'] = $row_user['picture'];
 			}
 			//else {
 			//	var_dump($_SESSION);

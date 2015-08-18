@@ -4,7 +4,7 @@
 	$result = $conn->query($query);
 	
 	$object = $result->fetch_object();
-	$_SESSION['loggedin_userid'] =$object->id;
+	$_SESSION['loggedin_userid'] = $object->id;
 	
 	header("Location: index.php");
 ?>

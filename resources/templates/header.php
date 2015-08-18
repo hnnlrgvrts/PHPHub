@@ -86,7 +86,7 @@
 				<?php if (isset($_SESSION[ 'loggedin_user'])) { ?>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<img <?php echo 'src = "uploads/avatars/av'.$_SESSION['loggedin_user'].'.png"'; ?> class="img-responsive avatar" />
+						<img <?php echo 'src = "uploads/avatars/' . $_SESSION['loggedin_picture'] . '"'; ?> class="img-responsive avatar" />
 						<p class="navbar-text">
 							<?php echo $_SESSION[ 'loggedin_user'] . " (" . $_SESSION[ 'loggedin_role'] . ")"; ?>
 						</p>
